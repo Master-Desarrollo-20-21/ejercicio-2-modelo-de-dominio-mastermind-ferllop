@@ -1,0 +1,48 @@
+@startuml
+
+title Mastermind - Modelo del dominio
+
+
+Game *-- "2..*" Play
+Game *-up- "2" Player
+Game *-- GameTurn
+
+GameTurn --> "2" Player
+
+Play *-- Board
+Play *-- "1..12" PlayTurn
+Play *-- SecretKeeper
+Play *-- Guesser
+
+Board *-- "12" Row
+
+PlayTurn *-- "0..4" GuessResult
+PlayTurn *-- Guess
+PlayTurn ..> Row
+
+SecretKeeper --|> Player
+SecretKeeper *-- Secret
+Secret o-- "5" Color
+
+Guesser --|> Player
+Guesser ..> Color
+
+Guess --> Guesser
+Guess o-- "5" Color
+
+GuessResult *-- Cow
+Note bottom of Cow : Only color well guessed
+Note bottom of Bull : Color and position well guessed
+GuessResult *-- Bull
+GuessResult --> SecretKeeper
+
+Color <|-- Rojo
+Color <|-- Azul
+Color <|-- Verde
+Color <|-- Amarillo
+Color <|-- Rosa
+Color <|-- Blanco 
+Color <|-- Negro
+Color <|-- Marron
+
+@enduml
